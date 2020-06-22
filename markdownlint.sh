@@ -30,7 +30,7 @@ push=$( jq -n \
           branchPrefix: "markdownlint",
           labels: $l,
           close: {
-            stale: boolean,
+            stale: true,
             message: "Closing pull request because all fixable warnings and/or errors have been fixed in base branch"
           }
         },
