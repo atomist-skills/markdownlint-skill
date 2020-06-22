@@ -14,8 +14,7 @@ branch=$( cat $ATOMIST_PAYLOAD |
   jq -r '.data.Push[0].branch' )
 
 ##### Bail out early if it on a markdownlint branch
-if [[ "$branch" =~ ^markdownlint-.* ]]
-then
+if [[ "$branch" =~ ^markdownlint-.* ]]; then
     exit 0
 fi
 
