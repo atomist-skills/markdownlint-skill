@@ -24,6 +24,7 @@ skill:
   categories:
     - CODE_REVIEW
   homepageUrl: 'https://github.com/atomist-skills/markdownlint-skill'
+  iconUrl: 'file://docs/images/icon.svg'
   artifacts:
     docker:
       - name: markdownlint
