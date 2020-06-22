@@ -52,5 +52,4 @@ then
   ignore_option="--ignore $ignores"
 fi
 
-echo markdownlint **/*.md $config_option $ignore_option $fix_option
-markdownlint **/*.md $config_option $ignore_option $fix_option
+markdownlint "**/*.md" $config_option $ignore_option $fix_option
