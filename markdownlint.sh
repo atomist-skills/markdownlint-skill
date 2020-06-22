@@ -1,6 +1,7 @@
 #!/usr/bash
 set -e
 
+##### Extract some skill configuration from the incoming event payload
 fix=$( cat $ATOMIST_PAYLOAD |
   jq -r '.skill.configuration.instances[0].parameters[] | select( .name == "push_strategy" ) | .value' )
 config=$( cat $ATOMIST_PAYLOAD |
@@ -10,10 +11,10 @@ ignores=$( cat $ATOMIST_PAYLOAD |
 labels=$( cat $ATOMIST_PAYLOAD |
   jq -r '.skill.configuration.instances[0].parameters[] | select( .name == "labels" ) | .value' )
 
-# copy matcher
+##### Make the problem matcher available to the runtime
 cp /app/markdownlint.matcher.json /atm/output/matchers/
 
-# create the push instructions
+##### Create push instructions for the runtime to indicate how changes to the repo should get persisted
 if [ -z "$labels" ]
 then
   labels="[]"
@@ -27,7 +28,11 @@ push=$( jq -n \
           title: "MarkdownLint fixes",
           body: "MarkdownLint fixed warnings and/or errors",
           branchPrefix: "markdownlint",
-          labels: $l
+          labels: $l,
+          close: {
+            stale: boolean,
+            message: "Closing pull request because all fixable warnings and/or errors have been fixed in base branch"
+          }
         },
         commit: {
           message: "MarkdownLint fixes"
@@ -36,6 +41,7 @@ push=$( jq -n \
     )
 echo $push > /atm/output/push.json
 
+##### Prepare command arguments
 if ! [ -z "$fix" ]
 then
   fix_option="--fix"
