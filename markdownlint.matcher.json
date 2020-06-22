@@ -1,0 +1,17 @@
+{
+  "name": "markdownlint",
+  "severity": "error",
+  "report": "error",
+  "pattern": [
+    {
+      "regexp": "^([^:]*):(\\d+):?(\\d+)?\\s([\\w-\\/]*)\\s(.*)$",
+      "groups": {
+        "path": 1,
+        "line": 2,
+        "column": 3,
+        "title": 4,
+        "message": 5
+      }
+    }
+  ]
+}

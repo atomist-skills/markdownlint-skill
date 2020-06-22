@@ -1,0 +1,78 @@
+apiVersion: 1
+skill:
+  name: markdownlint-skill
+  namespace: atomist
+  displayName: Markdown-lint
+  author: Atomist
+  license: Apache-2.0
+  categories:
+    - CODE_REVIEW
+  homepageUrl: 'https://github.com/atomist-skills/markdownlint-skill'
+  artifacts:
+    docker:
+      - name: markdownlint
+        image: gcr.io/atomist-container-skills/markdownlint-skill
+  resourceProviders:
+    - name: github
+      displayName: GitHub
+      typeName: GitHubAppResourceProvider
+      description: GitHub
+      minRequired: 1
+    - name: slack
+      displayName: Chat
+      typeName: ChatProvider
+      description: Chat
+      minRequired: 0
+  parameters:
+    - stringArray:
+        name: ignores
+        displayName: Ignore Pattern
+        description: Pattern of files or folders to ignore during linting
+        required: false
+    - string:
+        name: config
+        displayName: Configuration
+        description: >-
+          MarkdownLint configuration in JSON format used if project does not
+          contain own configuration. See the [MarkdownLint
+          documentation](https://github.com/DavidAnson/markdownlint) on how to
+          configure it.
+        lineStyle: multiple
+        required: false
+    - singleChoice:
+        name: push
+        displayName: Fix problems
+        description: >-
+          Run MarkdownLint with `--fix` option and determine how and when fixes
+          should be committed back into the repository
+        defaultValue: pr_default_commit
+        options:
+          - text: Raise pull request for default branch; commit to other branches
+            value: pr_default_commit
+          - text: Raise pull request for default branch only
+            value: pr_default
+          - text: Raise pull request for any branch
+            value: pr
+          - text: Commit to default branch only
+            value: commit_default
+          - text: Commit to any branch
+            value: commit
+          - text: Do not apply fixes
+            value: none
+        required: false
+    - stringArray:
+        name: labels
+        displayName: Pull request labels
+        description: >-
+          Add additional labels to pull requests raised by this skill, e.g. to
+          configure the
+          [auto-merge](https://go.atomist.com/catalog/skills/atomist/github-auto-merge-skill)
+          behavior.
+        required: false
+    - repoFilter:
+        name: repos
+        displayName: Which repositories
+        description: ''
+        required: true
+  subscriptions:
+    - file://graphql/subscription/*.graphql
