@@ -2,7 +2,7 @@
 
 <!---atomist-skill-description:start--->
 
-Find and fix problems in your Markdown files, get pull requests with fixes.
+Find problems in your Markdown files, get pull requests with fixes.
 
 <!---atomist-skill-description:end--->
 
@@ -25,17 +25,18 @@ projects
 Connect and configure these integrations:
 
 1. **GitHub**
-1. **Slack**
+1. **Slack or Microsoft Teams**
 
 The **GitHub** integration must be configured in order to use this skill. At
-least one repository must be selected. The **Slack** integration is optional.
+least one repository must be selected. The **Slack** or **Microsoft Teams** 
+integration is optional.
 
 # How to configure
 
 1. **Select files or folders to ignore**
 
     ![Ignore](docs/images/ignore.png)
-
+                                    
     To speed up linting or avoid linting specific files, select which files
     and folders to ignore.
 
@@ -43,7 +44,7 @@ least one repository must be selected. The **Slack** integration is optional.
 
     ![Configuration](docs/images/config.png)
 
-    Provide the [MarkdownLint configuration](https://eslint.org/docs/user-guide/configuring)
+    Provide the [MarkdownLint configuration](https://github.com/DavidAnson/markdownlint)
     in JSON format to be used for linting when a repository
     does not have its own configuration.
 
@@ -78,6 +79,8 @@ least one repository must be selected. The **Slack** integration is optional.
 
 1. **Configure pull request labels**
 
+    ![Labels](docs/images/labels.png)
+
     Add additional labels to pull requests raised by this skill.
 
     This is useful to influence how and when the PR should be auto-merged by the
@@ -94,7 +97,7 @@ least one repository must be selected. The **Slack** integration is optional.
    To restrict the organizations or specific repositories on which the skill
    will run, you can explicitly choose organization(s) and repositories.
 
-# How to lint your JavaScript code
+# How to lint your Markdown files
 
 1. **Set up the skill by providing an MarkdownLint configuration**
 
