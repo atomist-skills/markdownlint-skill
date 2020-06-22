@@ -26,7 +26,8 @@ push=$( jq -n \
         pullRequest: {
           title: "MarkdownLint fixes",
           body: "MarkdownLint fixed warnings and/or errors",
-          branchPrefix: "markdownlint", labels: $l
+          branchPrefix: "markdownlint",
+          labels: $l
         },
         commit: {
           message: "MarkdownLint fixes"
@@ -51,4 +52,5 @@ then
   ignore_option="--ignore $ignores"
 fi
 
+echo markdownlint **/*.md $config_option $ignore_option $fix_option
 markdownlint **/*.md $config_option $ignore_option $fix_option
