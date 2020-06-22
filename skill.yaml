@@ -57,7 +57,7 @@ skill:
         lineStyle: multiple
         required: false
     - singleChoice:
-        name: push
+        name: push_strategy
         displayName: Fix problems
         description: >-
           Run MarkdownLint with `--fix` option and determine how and when fixes

@@ -2,7 +2,7 @@
 set -e
 
 fix=$( cat $ATOMIST_PAYLOAD |
-  jq -r '.skill.configuration.instances[0].parameters[] | select( .name == "push" ) | .value' )
+  jq -r '.skill.configuration.instances[0].parameters[] | select( .name == "push_strategy" ) | .value' )
 config=$( cat $ATOMIST_PAYLOAD |
   jq -r '.skill.configuration.instances[0].parameters[] | select( .name == "config" ) | .value' )
 ignores=$( cat $ATOMIST_PAYLOAD |
