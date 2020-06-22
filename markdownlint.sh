@@ -14,6 +14,10 @@ labels=$( cat $ATOMIST_PAYLOAD |
 cp /app/markdownlint.matcher.json /atm/output/matchers/
 
 # create the push instructions
+if [ -z "$labels" ]
+then
+  labels="[]"
+fi
 push=$( jq -n \
     --arg s "$fix" \
     --argjson l "$labels" \
