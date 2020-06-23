@@ -2,7 +2,7 @@
 
 <!---atomist-skill-description:start--->
 
-Find problems in your Markdown files, get pull requests with fixes.
+Find problems in your Markdown files, get pull requests with fixes
 
 <!---atomist-skill-description:end--->
 
