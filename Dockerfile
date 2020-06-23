@@ -1,7 +1,8 @@
 FROM node:lts
 
 RUN apt-get update && apt-get install -y \
-   jq
+   jq \
+   && rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g markdownlint-cli
 
