@@ -1,5 +1,4 @@
 #! /bin/bash
-# Extract information for skill from Atomist-provided data
 #
 # Copyright © 2020 Atomist, Inc.
 #
