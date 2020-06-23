@@ -33,37 +33,20 @@ function err () {
 
 function main () {
     # Extract some skill configuration from the incoming event payload
-    local fix config ignores labels branch
-    fix=$( < "$ATOMIST_PAYLOAD" \
-             jq -r '.skill.configuration.instances[0].parameters[] | select( .name == "push_strategy" ) | .value' )
+    local payload=${ATOMIST_PAYLOAD:-/atm/payload.json}
+    local config ignores labels push_strategy
+    eval "$(jq -r ".skill.configuration.instances[0].parameters[] | select(.value) | \"\\(.name)='\\(.value)';\"" "$payload")"
     if [[ $? -ne 0 ]]; then
-        err "Failed to extract push_strategy parameter"
+        err "Failed to extract parameters from payload"
         return 1
     fi
-    config=$( < "$ATOMIST_PAYLOAD" \
-                  jq -r '.skill.configuration.instances[0].parameters[] | select( .name == "config" ) | .value' )
-    if [[ $? -ne 0 ]]; then
-        err "Failed to extract config parameter"
-        return 1
-    fi
-    ignores=$( < "$ATOMIST_PAYLOAD" \
-                   jq -r '.skill.configuration.instances[0].parameters[] | select( .name == "ignores" ) | .value[]' )
-    if [[ $? -ne 0 ]]; then
-        err "Failed to extract ignores parameter"
-        return 1
-    fi
-    labels=$( < "$ATOMIST_PAYLOAD" \
-                  jq -r '.skill.configuration.instances[0].parameters[] | select( .name == "labels" ) | .value' )
-    if [[ $? -ne 0 ]]; then
-        err "Failed to extract labels parameter"
-        return 1
-    fi
-    branch=$( < "$ATOMIST_PAYLOAD" jq -r '.data.Push[0].branch' )
+
+    local branch
+    branch=$(jq -r '.data.Push[0].branch' "$payload")
     if [[ $? -ne 0 ]]; then
         err "Failed to extract branch of push"
         return 1
     fi
-
     # Bail out early if it on a markdownlint branch
     if [[ $branch == markdownlint-* ]]; then
         exit 0
@@ -72,13 +55,13 @@ function main () {
     local outdir=${ATOMIST_OUTPUT_DIR:-/atm/output}
 
     # Make the problem matcher available to the runtime
-    local matcher_outdir=$outdir/matchers
-    if ! mkdir -p "$matcher_outdir"; then
-        err "Failed to create matcher output directory: $matcher_outdir"
+    local matchers_dir=${ATOMIST_MATCHERS_DIR:-$outdir/matchers}
+    if ! mkdir -p "$matchers_dir"; then
+        err "Failed to create matcher output directory: $matchers_dir"
         return 1
     fi
-    if ! cp /app/markdownlint.matcher.json "$matcher_outdir"; then
-        err "Failed to copy markdownlink.matcher.json to $matcher_outdir"
+    if ! cp /app/markdownlint.matcher.json "$matchers_dir"; then
+        err "Failed to copy markdownlink.matcher.json to $matchers_dir"
         return 1
     fi
 
@@ -87,7 +70,8 @@ function main () {
         labels="[]"
     fi
 
-    if ! > "$outdir/push.json" jq -n --arg s "$fix" --argjson l "$labels" '{
+    local push_file=${ATOMIST_PUSH:-$outdir/push.json}
+    if ! > "$push_file" jq -n --arg s "$push_strategy" --argjson l "$labels" '{
     strategy: $s,
     pullRequest: {
       title: "MarkdownLint fixes",
@@ -104,13 +88,13 @@ function main () {
     }
 }'
     then
-        err "failed to write $outdir/push.json"
+        err "failed to write $push_file"
         return 1
     fi
 
     # Prepare command arguments
     local fix_option=
-    if [[ $fix ]]; then
+    if [[ $push_strategy ]]; then
         fix_option=--fix
     fi
     local homedir=${ATOMIST_HOME:-/atm/home}
@@ -127,7 +111,7 @@ function main () {
     local ignore_option=
     if [[ $ignores ]]; then
         local ignore_file=$inputdir/markdownlint.ignore
-        if ! echo "$ignores" > "$ignore_file"; then
+        if ! echo "$ignores" | jq -r '.[]' > "$ignore_file"; then
             err "Failed to create MarkdownLint ignore file $ignore_file"
             return 1
         fi
