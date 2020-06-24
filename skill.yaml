@@ -14,6 +14,8 @@
 #  limitations under the License.
 #
 
+---
+
 apiVersion: 1
 skill:
   name: markdownlint-skill
@@ -64,7 +66,8 @@ skill:
           should be committed back into the repository
         defaultValue: pr_default_commit
         options:
-          - text: Raise pull request for default branch; commit to other branches
+          - text: >-
+              Raise pull request for default branch; commit to other branches
             value: pr_default_commit
           - text: Raise pull request for default branch only
             value: pr_default
