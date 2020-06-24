@@ -56,7 +56,7 @@ function main () {
     # Extract some skill configuration from the incoming event payload
     local payload=${ATOMIST_PAYLOAD:-/atm/payload.json}
     local config ignores labels push_strategy
-    eval "$(jq -r ".skill.configuration.parameters[] | select(.value) | \"\\(.name)='\\(.value)';\"" "$payload")"
+    eval "$(jq -r ".skill.configuration.parameters[] | select(.value) | \"\\(.name)=$'\\(.value | tostring | gsub(\"(?<e>[\\\\\\\'])\"; \"\\\\\(.e)\"))';\"" "$payload")"
     if [[ $? -ne 0 ]]; then
         err "Failed to extract parameters from payload"
         return 1
