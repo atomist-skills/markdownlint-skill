@@ -59,6 +59,11 @@ function main () {
     if [[ $branch == markdownlint-* ]]; then
         exit 0
     fi
+    # Bail if no Markdown files exists in current project
+    if [[ -z $(find . -name '*.md') ]]; then 
+        exit 0
+    fi
+
 
     local outdir=${ATOMIST_OUTPUT_DIR:-/atm/output}
 

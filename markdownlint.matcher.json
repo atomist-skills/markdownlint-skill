@@ -1,7 +1,7 @@
 {
   "name": "markdownlint",
   "severity": "error",
-  "report": "error",
+  "report": "always",
   "pattern": [
     {
       "regexp": "^([^:]*):(\\d+):?(\\d+)?\\s([\\w-\\/]*)\\s(.*)$",

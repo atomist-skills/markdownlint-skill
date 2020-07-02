@@ -14,8 +14,8 @@ Find problems in your Markdown files, get pull requests with fixes
 
 Get consistency across your Markdown files.
 
-* Run MarkdownLint with the same consistent configuration across all of your
-projects
+* Run [MarkdownLint](https://github.com/DavidAnson/markdownlint) with 
+the same consistent configuration across all of your projects
 * Also supports repository-specific MarkdownLint configurations
 * Uses GitHub Checks with code-level annotations for linting rule violations
 * Optionally get commits or pull requests with fixes
