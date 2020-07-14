@@ -89,7 +89,7 @@ function main () {
     pullRequest: {
       title: "MarkdownLint fixes",
       body: "MarkdownLint fixed warnings and/or errors",
-      branchPrefix: "markdownlint",
+      branchPrefix: "atomist/markdownlint",
       labels: $l,
       close: {
         stale: true,
