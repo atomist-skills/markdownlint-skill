@@ -15,7 +15,6 @@
 #
 
 ---
-
 apiVersion: 1
 skill:
   name: markdownlint-skill
@@ -25,8 +24,8 @@ skill:
   license: Apache-2.0
   categories:
     - CODE_REVIEW
-  homepageUrl: 'https://github.com/atomist-skills/markdownlint-skill'
-  iconUrl: 'file://docs/images/icon.svg'
+  homepageUrl: "https://github.com/atomist-skills/markdownlint-skill"
+  iconUrl: "file://docs/images/icon.svg"
   artifacts:
     docker:
       - name: markdownlint
@@ -92,7 +91,7 @@ skill:
     - repoFilter:
         name: repos
         displayName: Which repositories
-        description: ''
+        description: ""
         required: true
   subscriptions:
     - file://graphql/subscription/*.graphql
