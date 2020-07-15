@@ -36,7 +36,7 @@ integration is optional.
 1. **Select files or folders to ignore**
 
     ![Ignore](docs/images/ignore.png)
-      
+
     To speed up linting or avoid linting specific files, select which files
     and folders to ignore.
 
