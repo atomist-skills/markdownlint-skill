@@ -23,7 +23,7 @@ skill:
   author: Atomist
   license: Apache-2.0
   categories:
-    - CODE_REVIEW
+    - CODE_QUALITY
   homepageUrl: "https://github.com/atomist-skills/markdownlint-skill"
   iconUrl: "file://docs/images/icon.svg"
   artifacts:
