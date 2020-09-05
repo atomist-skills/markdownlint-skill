@@ -19,26 +19,39 @@ declare Version=0.1.0
 
 set -o pipefail
 
-# write status to output location.
-# usage: status CODE MESSAGE
-function status () {
-    local statusFile=${ATOMIST_STATUS:-/atm/output/status.json}
-    echo '{ "code": '$1', "reason": "'$2'" }' > "$statusFile"
-}
-
-# print message to stdout prefixed by package name.
+# Print message to stdout prefixed by package name.
 # usage: msg MESSAGE
 function msg () {
     echo "$Pkg: $*"
 }
 
-# print message to stderr prefixed by package name.
+# Print message to stderr prefixed by package name.
 # usage: err MESSAGE
 function err () {
     msg "$*" 1>&2
     status 1 "$*"
 }
 
+# Write status to output location.
+# usage: status CODE MESSAGE
+function status () {
+    local code=$1
+    if [[ ! $code ]]; then
+        err "status: Missing required argument: CODE"
+        return 1
+    fi
+    shift
+    local reason=$2
+
+    local status_file=${ATOMIST_STATUS:-/atm/output/status.json}
+    if ! printf '{"code":%d,"reason":"%s"}\n' "$code" "$reason" > "$status_file"; then
+        err "status: Failed to write status to $status_file"
+        return 1
+    fi
+}
+
+# Extract parameters from payload and run markdownlint.
+# usage: main "$@"
 function main () {
     # Extract some skill configuration from the incoming event payload
     local payload=${ATOMIST_PAYLOAD:-/atm/payload.json}
@@ -132,22 +145,40 @@ function main () {
     fi
 
     markdownlint "**/*.md" $config_option $ignore_option $fix_option
-    if [ $? -eq 0 ]; then
-        status 0 "No errors or warnings found"
-        return 0
-    elif [ $? -eq 1 ]; then
-        status 0 "One or more errors found"
-        return 0
-    elif [ $? -eq 2 ]; then
-        status 0 "Unable to write output file"
+    local mdl_rv=$?
+    local code reason rv
+    case "$mdl_rv" in
+        0)
+            code=0
+            reason="No errors or warnings found"
+            rv=0
+            ;;
+        1)
+            code=0
+            reason="One or more errors found"
+            rv=0
+            ;;
+        2)
+            code=0
+            reason="Unable to write output file"
+            rv=1
+            ;;
+        3)
+            code=0
+            reason="Unable to load custom rule"
+            rv=1
+            ;;
+        *)
+            code=1
+            reason="Unknown markdownlint exit code"
+            rv=$mdl_rv
+            ;;
+    esac
+    if ! status "$code" "$reason"; then
         return 1
-    elif [ $? -eq 3 ]; then
-        status 0 "Unable to load custom rule"
-        return 1
-    else
-        status 1 "Unknown markdownlint exit code"
-        return $?
     fi
+
+    return "$rv"
 }
 
 main "$@"
