@@ -24,8 +24,6 @@ skill:
   license: Apache-2.0
   categories:
     - CODE_QUALITY
-  homepageUrl: "https://github.com/atomist-skills/markdownlint-skill"
-  iconUrl: "file://docs/images/icon.svg"
   artifacts:
     docker:
       - name: markdownlint
