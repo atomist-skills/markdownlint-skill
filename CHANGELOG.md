@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/atomist-skills/markdownlint-skill/compare/0.1.1...HEAD)
 
+### Changed
+
+-   Remove single dispatch. [ae0ae83](https://github.com/atomist-skills/markdownlint-skill/commit/ae0ae8389e1a532d5839ae706308f80975c4e83a)
+
 ## [0.1.1](https://github.com/atomist-skills/markdownlint-skill/compare/0.1.0...0.1.1) - 2020-07-28
 
 ### Changed
