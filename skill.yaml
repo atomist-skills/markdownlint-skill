@@ -23,7 +23,7 @@ skill:
   author: Atomist
   license: Apache-2.0
   categories:
-    - CODE_QUALITY
+    - CODE_MAINTENANCE
   artifacts:
     docker:
       - name: markdownlint
