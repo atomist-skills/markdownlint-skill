@@ -12,9 +12,7 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-#
 
----
 apiVersion: 1
 skill:
   name: markdownlint-skill
@@ -22,6 +20,7 @@ skill:
   displayName: Markdown-lint
   author: Atomist
   license: Apache-2.0
+  iconUrl: https://raw.githubusercontent.com/atomist-skills/markdownlint-skill/main/docs/images/icon.svg
   categories:
     - CODE_MAINTENANCE
   artifacts:
