@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/atomist-skills/markdownlint-skill/compare/0.2.0...HEAD)
 
+### Changed
+
+-   Update skill icon. [f4768bf](https://github.com/atomist-skills/markdownlint-skill/commit/f4768bfcb6b835a81a3b4fcc8fadd37b5af7c75f)
+
 ## [0.2.0](https://github.com/atomist-skills/markdownlint-skill/compare/0.1.1...0.2.0) - 2020-10-16
 
 ### Changed
