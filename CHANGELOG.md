@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 -   Update skill icon. [f4768bf](https://github.com/atomist-skills/markdownlint-skill/commit/f4768bfcb6b835a81a3b4fcc8fadd37b5af7c75f)
 
+### Removed
+
+-   Remove unused chat provider. [ccdf1be](https://github.com/atomist-skills/markdownlint-skill/commit/ccdf1bed8984084cc29c89b51c0a05f272e2975e)
+
 ## [0.2.0](https://github.com/atomist-skills/markdownlint-skill/compare/0.1.1...0.2.0) - 2020-10-16
 
 ### Changed
