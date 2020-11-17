@@ -18,6 +18,7 @@ skill:
   name: markdownlint-skill
   namespace: atomist
   displayName: Markdown-lint
+  description: Find problems in your Markdown files, get pull requests with fixes
   author: Atomist
   license: Apache-2.0
   iconUrl: https://raw.githubusercontent.com/atomist-skills/markdownlint-skill/main/docs/images/icon.svg
