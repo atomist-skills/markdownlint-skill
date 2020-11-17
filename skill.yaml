@@ -33,11 +33,6 @@ skill:
       typeName: GitHubAppResourceProvider
       description: GitHub
       minRequired: 1
-    - name: slack
-      displayName: Chat
-      typeName: ChatProvider
-      description: Chat
-      minRequired: 0
   parameters:
     - stringArray:
         name: ignores
