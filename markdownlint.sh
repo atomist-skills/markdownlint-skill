@@ -72,6 +72,16 @@ function main () {
     if [[ $branch == markdownlint-* ]]; then
         exit 0
     fi
+    local commitMsg
+    commitMsg=$(jq -r '.data.Push[0].after.message' "$payload")
+    if [[ $? -ne 0 ]]; then
+        err "Failed to extract commit message of push"
+        return 1
+    fi
+    # Bail out early if linting own commit
+    if [[ $commitMsg == *"[atomist:generated]"* ]]; then
+        exit 0
+    fi
     # Bail if no Markdown files exists in current project
     if [[ -z $(find . -name '*.md') ]]; then 
         exit 0

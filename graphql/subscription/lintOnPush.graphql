@@ -1,6 +1,7 @@
 subscription lintOnPush {
   Push {
     after {
+      message
       author {
         login
         name
