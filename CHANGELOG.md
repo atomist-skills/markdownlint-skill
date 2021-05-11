@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/atomist-skills/markdownlint-skill/compare/1.0.0...HEAD)
 
+### Changed
+
+-   Pin Docker base image in Dockerfile. [#13](https://github.com/atomist-skills/markdownlint-skill/issues/13)
+
 ### Fixed
 
 -   Exit early if linting own commit. [0138dd1](https://github.com/atomist-skills/markdownlint-skill/commit/0138dd1ca099e969e4aec14d07ed7a1fd137e973)
