@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/atomist-skills/markdownlint-skill/compare/1.0.0...HEAD)
 
+### Fixed
+
+-   Exit early if linting own commit. [0138dd1](https://github.com/atomist-skills/markdownlint-skill/commit/0138dd1ca099e969e4aec14d07ed7a1fd137e973)
+
 ## [1.0.0](https://github.com/atomist-skills/markdownlint-skill/compare/0.2.0...1.0.0) - 2020-11-17
 
 ### Changed
