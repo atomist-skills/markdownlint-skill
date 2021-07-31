@@ -1,4 +1,4 @@
-FROM node:lts@sha256:9025a77b2f37fcda3bbd367587367a9f2251d16a756ed544550b8a571e16a653
+FROM node:lts@sha256:cd98882c1093f758d09cf6821dc8f96b241073b38e8ed294ca1f9e484743858f
 
 RUN apt-get update && apt-get install -y \
     jq=1.5+dfsg-1.3 \
